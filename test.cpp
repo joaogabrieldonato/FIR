@@ -1,23 +1,32 @@
 #include <stdio.h>
 #include <iostream>
+#include <chrono>
+#include <ctime>
 #include "FIR.h"
 
 using namespace std;
+using namespace chrono;
 
-FIR bs;
-const float a=0.6, b=0.6;
+FIR bs(0.595, 0.595);
 
 int nin = 0;
 float r = 2500;
 
 int main () 
-{   
+{
+  time_t err = system_clock::to_time_t(system_clock::now());
+  cout << "Teste realizado em: " << ctime(&err);
+
+  int rpm = 0;   
   while (1)
   {
-  cout << (int)bs.filt(r,a,b) << endl;
-  nin++;
-  if(nin==10000)
-    break;
+    rpm = (int)bs.filt(r);
+    cout << rpm << endl;
+    nin++;
+    if(rpm==r)
+    {      cout << "\nQuantidade de interacoes: " << nin;
+      break;
+    }
   }
    
   return 0;
