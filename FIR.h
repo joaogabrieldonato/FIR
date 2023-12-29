@@ -2,8 +2,6 @@
 #ifndef FIR_H
 #define FIR_H
 
-#include <math.h>
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -34,7 +32,7 @@ class FIR {
         * Second filter
     ==========================*/
         float filtfilt(float A, float B, float x2);
-        bool flag=false;
+        bool flag;
     protected:
         float _a;
         float _b; 
