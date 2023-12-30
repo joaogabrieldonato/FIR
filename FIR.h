@@ -2,8 +2,6 @@
 #ifndef FIR_H
 #define FIR_H
 
-#include <math.h>
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,15 +12,15 @@
 class FIR {
     public:
     /*========================================================================================================
+        *  The higher the value of the coefficient, the slower its update rate, but the stronger its filter.
         * @param a_coef, @param b_coef is the coefficients to the filter;
-        *   The higher the value of the coefficient, the slower its update rate, but the stronger its filter.
     ========================================================================================================*/
         FIR(float a_coef, float b_coef);
         ~FIR();
     /*========================================================================================================
         * Filter based on convolution between previous inputs.
         * @param x is the variable used for the filtering;
-        * @param type_filtering if needeed apply your filter two times type_filtering=true.
+        * @param type_filtering if needeed apply your filter two times -> type_filtering=true.
     ==========================================================================================================*/
         float filt(float x, bool type_filtering = false);
     private:
@@ -34,7 +32,7 @@ class FIR {
         * Second filter
     ==========================*/
         float filtfilt(float A, float B, float x2);
-        bool flag=false;
+        bool flag;
     protected:
         float _a;
         float _b; 
@@ -73,9 +71,9 @@ float FIR::filt(float x, bool type_filtering)
 
 void FIR::move_vec(float *vetorAddr, int size, float value)
 {
-    for (int k = size-1; k > 0; k--)
+    for(int i = size-1; i > 0; i--)
     {
-        *(vetorAddr+k) = *(vetorAddr+k-1);
+        *(vetorAddr+i) = *(vetorAddr+i-1);
     }
 
     *vetorAddr = value;
